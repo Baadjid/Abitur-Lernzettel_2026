@@ -1,9 +1,11 @@
+Hier ist die erweiterte HTML-Datei. Ich habe einen Hover-Link integriert, der auf die neue Lernzettel-Seite verweist und eine deutliche Abschiedsnachricht für Besucher der alten Version anzeigt.
+```html
 <!DOCTYPE html>
 <html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abitur Lernzettel - Übersicht</title>
+    <title>Abitur Lernzettel - Neue Version 2026</title>
     <style>
         :root {
             --primary-color: #2c3e50;
@@ -15,6 +17,7 @@
             --card-bg: #ffffff;
             --text-color: #2c3e50;
             --border-color: #bdc3c7;
+            --new-badge: #e67e22;
         }
 
         * {
@@ -59,6 +62,124 @@
             right: 0;
             height: 5px;
             background: linear-gradient(90deg, #000000, #DD0000, #FFCE00);
+        }
+
+        /* NEU: Hinweis-Banner für alte Version */
+        .version-banner {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            color: white;
+            padding: 14px 20px;
+            border-radius: 60px;
+            margin-bottom: 25px;
+            text-align: center;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(243, 156, 18, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            animation: pulseGlow 2s infinite;
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 4px 15px rgba(243, 156, 18, 0.3); }
+            50% { box-shadow: 0 6px 25px rgba(243, 156, 18, 0.6); }
+            100% { box-shadow: 0 4px 15px rgba(243, 156, 18, 0.3); }
+        }
+
+        .version-banner span {
+            background: white;
+            color: #e67e22;
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-size: 0.85em;
+            font-weight: 800;
+        }
+
+        .new-link-hint {
+            background: rgba(255,255,255,0.2);
+            padding: 5px 15px;
+            border-radius: 40px;
+            font-size: 0.9em;
+        }
+
+        /* HOVER-LINK Bereich */
+        .hover-link-area {
+            position: relative;
+            display: inline-block;
+            margin-left: 8px;
+            cursor: default;
+        }
+
+        .hover-trigger {
+            background: rgba(255,255,255,0.3);
+            border-radius: 30px;
+            padding: 5px 12px;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.9em;
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+
+        .hover-trigger:hover {
+            background: rgba(255,255,255,0.5);
+            transform: scale(1.02);
+        }
+
+        .tooltip-new {
+            position: absolute;
+            bottom: 130%;
+            left: 50%;
+            transform: translateX(-50%) scale(0.9);
+            background: #1e2a36;
+            color: white;
+            padding: 14px 22px;
+            border-radius: 20px;
+            font-size: 1rem;
+            font-weight: 500;
+            white-space: nowrap;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            z-index: 200;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            pointer-events: none;
+            border-left: 5px solid #f39c12;
+            backdrop-filter: blur(8px);
+            background: rgba(0, 0, 0, 0.85);
+            letter-spacing: 0.3px;
+        }
+
+        .tooltip-new a {
+            color: #ffd966;
+            text-decoration: underline;
+            font-weight: bold;
+            white-space: nowrap;
+            pointer-events: auto;
+        }
+
+        .tooltip-new a:hover {
+            color: #ffaa33;
+        }
+
+        .hover-link-area:hover .tooltip-new {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) scale(1);
+        }
+
+        .tooltip-new::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -8px;
+            border-width: 8px;
+            border-style: solid;
+            border-color: rgba(0,0,0,0.85) transparent transparent transparent;
         }
 
         .header h1 {
@@ -134,6 +255,22 @@
             background: linear-gradient(45deg, transparent, rgba(52, 152, 219, 0.1));
             border-radius: 50%;
             transform: translate(30px, -30px);
+        }
+
+        /* NEU: Badge "Neu: Aktuelle Version" */
+        .new-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(120deg, #27ae60, #2ecc71);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: bold;
+            padding: 5px 12px;
+            border-radius: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            z-index: 5;
+            letter-spacing: 0.5px;
         }
 
         .subject-card.deutsch {
@@ -320,6 +457,51 @@
             margin-bottom: 10px;
         }
 
+        /* HINWEIS für alte Version - auffälliger Callout */
+        .old-version-warning {
+            background: #fee2e2;
+            border-left: 6px solid #e74c3c;
+            padding: 18px 20px;
+            border-radius: 16px;
+            margin: 25px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .warning-text {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .warning-text strong {
+            color: #c0392b;
+            font-size: 1.05em;
+        }
+
+        .new-link-button {
+            background: #e67e22;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .new-link-button:hover {
+            background: #d35400;
+            transform: scale(1.02);
+            box-shadow: 0 4px 12px rgba(230,126,34,0.3);
+        }
+
         @media (min-width: 768px) {
             .features-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -382,13 +564,26 @@
             .info-section h3 {
                 font-size: 1.1em;
             }
+            
+            .tooltip-new {
+                white-space: normal;
+                min-width: 260px;
+                font-size: 0.85rem;
+                left: 0;
+                transform: translateX(0);
+            }
+            .hover-link-area:hover .tooltip-new {
+                transform: translateX(0) scale(1);
+            }
+            .tooltip-new::after {
+                left: 20px;
+            }
         }
 
         @media (max-width: 480px) {
             .header h1 {
                 font-size: 1.5em;
             }
-
             .subject-title h2 {
                 font-size: 1.1em;
             }
@@ -400,6 +595,24 @@
         <div class="header">
             <h1>🎓 Abitur Lernzettel</h1>
             <p>Umfassende Zusammenfassungen für das Gymnasium Baden-Württemberg</p>
+            <!-- NEUER HOVER-LINK (im Header integriert) -->
+            <div style="display: flex; justify-content: center; margin: 10px 0 5px;">
+                <div class="hover-link-area">
+                    <div class="hover-trigger">
+                        🔗 Neue aktuelle Plattform? <span style="font-size:1.2em;">ⓘ</span>
+                    </div>
+                    <div class="tooltip-new">
+                        ✨ <strong>AKTUELLE INHALTE & NEUE VERSION</strong> ✨<br>
+                        Besuche die vollständig überarbeitete Seite:<br>
+                        <a href="https://baadjid.github.io/educational-platform/#/projekte/lernzettel" target="_blank" rel="noopener noreferrer">
+                        📘 baadjid.github.io/educational-platform → Lernzettel
+                        </a><br>
+                        <span style="font-size:0.8rem; opacity:0.9;">(Hier findest du alle aktuellen Lernmaterialien)</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Ende Hover-Link -->
+            
             <div class="stats-container">
                 <div class="stat-item">
                     <span class="stat-number">8</span>
@@ -411,17 +624,39 @@
                 </div>
             </div>
         </div>
+        
+        <!-- DEUTLICHER HINWEIS: ALTE VERSION WIRD NICHT MEHR ERWEITERT -->
+        <div class="old-version-warning">
+            <div class="warning-text">
+                <span style="font-size: 2rem;">⚠️</span>
+                <div>
+                    <strong>Achtung – Dies ist die ursprüngliche Lernzettel-Seite (Vorgängerversion).</strong><br>
+                    Ich werde diese Version <strong style="color:#c0392b;">nicht mehr erweitern oder aktualisieren</strong>. 
+                    Alle neuen Inhalte, überarbeiteten Lernzettel und zusätzlichen Fächer findest du auf der neuen Plattform.
+                </div>
+            </div>
+            <a href="https://baadjid.github.io/educational-platform/#/projekte/lernzettel" target="_blank" class="new-link-button" rel="noopener noreferrer">
+                🚀 Zur neuen Lernzettel-Plattform → 
+            </a>
+        </div>
 
         <div class="info-section">
-            <h3>📚 Willkommen zu meiner Lernzettel-Sammlung</h3>
+            <h3>📚 Willkommen zu meiner Lernzettel-Sammlung (Archiv-Version)</h3>
             <p>
                 Diese Sammlung enthält umfassende Lernmaterialien für das Abitur 2026 am Gymnasium in Baden-Württemberg. 
                 Alle Lernzettel sind strukturiert, übersichtlich und speziell auf den Bildungsplan 2021 abgestimmt.
+                <strong style="color:#e67e22;">❗ Wichtiger Hinweis: Diese Seite dient als Referenz der alten Struktur. Die zukunftssichere und erweiterte Version befindet sich auf der neuen Educational Platform.</strong>
             </p>
+            <!-- Hover-Link nochmal innerhalb der Info-Sektion als dezenter Hinweis -->
+            <div style="margin-top: 12px; background: #fef5e8; padding: 8px 15px; border-radius: 40px; display: inline-block;">
+                🖱️ <strong>Hover über "Neue aktuelle Plattform?"</strong> im Header oder <a href="https://baadjid.github.io/educational-platform/#/projekte/lernzettel" target="_blank" style="color:#d35400; font-weight:bold;">direkt klicken</a> – dort gibt's ständig neue Lernzettel!
+            </div>
+        </div>
 
         <div class="main-grid">
             <!-- Deutsch -->
             <div class="subject-card deutsch">
+                <div class="new-badge">📌 Aktualisiert (Archiv)</div>
                 <div class="subject-header">
                     <div class="subject-icon">📖</div>
                     <div class="subject-title">
@@ -446,6 +681,7 @@
 
             <!-- Englisch -->
             <div class="subject-card englisch">
+                <div class="new-badge">📌 Bestand</div>
                 <div class="subject-header">
                     <div class="subject-icon">🇬🇧</div>
                     <div class="subject-title">
@@ -470,6 +706,7 @@
 
             <!-- Chemie -->
             <div class="subject-card chemie">
+                <div class="new-badge">📌 Archiv-Version</div>
                 <div class="subject-header">
                     <div class="subject-icon">⚗️</div>
                     <div class="subject-title">
@@ -494,6 +731,7 @@
 
             <!-- ITS/ITH -->
             <div class="subject-card its-ith">
+                <div class="new-badge">📌 Legacy</div>
                 <div class="subject-header">
                     <div class="subject-icon">💻</div>
                     <div class="subject-title">
@@ -518,6 +756,7 @@
 
             <!-- Ethik -->
             <div class="subject-card ethik">
+                <div class="new-badge">📌 Klassiker</div>
                 <div class="subject-header">
                     <div class="subject-icon">🤔</div>
                     <div class="subject-title">
@@ -542,6 +781,7 @@
 
             <!-- Spanisch -->
             <div class="subject-card spanisch">
+                <div class="new-badge">📌 Bestand</div>
                 <div class="subject-header">
                     <div class="subject-icon">🇪🇸</div>
                     <div class="subject-title">
@@ -566,6 +806,7 @@
 
             <!-- Geschichte & Gemeinschaftskunde -->
             <div class="subject-card geschichte">
+                <div class="new-badge">📌 Überblick</div>
                 <div class="subject-header">
                     <div class="subject-icon">🏛️</div>
                     <div class="subject-title">
@@ -590,6 +831,7 @@
 
             <!-- Sport -->
             <div class="subject-card sport">
+                <div class="new-badge">📌 Archiv</div>
                 <div class="subject-header">
                     <div class="subject-icon">⚽</div>
                     <div class="subject-title">
@@ -614,10 +856,11 @@
         </div>
 
         <div class="footer">
-            <p>📚 Lernzettel-Sammlung für das Abitur 2026</p>
+            <p>📚 Lernzettel-Sammlung (Archiv-Version – keine weiteren Updates)</p>
             <p>Gymnasium Baden-Württemberg | Bildungsplan 2021</p>
             <p style="margin-top: 15px; font-size: 0.9em;">
-                Erstellt von Kirill Heldt| Viel Erfolg bei der Vorbereitung! 🎓
+                Erstellt von Kirill Heldt | <strong style="color:#e67e22;">✅ Neue Inhalte ausschließlich auf <a href="https://baadjid.github.io/educational-platform/#/projekte/lernzettel" target="_blank" style="color:#e67e22;">der aktuellen Lernplattform</a></strong><br>
+                🚀 Diese Seite wird nicht erweitert – bitte die neue Version nutzen!
             </p>
         </div>
     </div>
@@ -658,10 +901,12 @@
                 });
             });
 
-            // Log welcome message
-            console.log('✅ Abitur Lernzettel Übersicht geladen!');
-            console.log('📚 8 Fächer verfügbar');
-            console.log('🎓 Viel Erfolg bei der Vorbereitung!');
+            // Console Warnung für alte Version
+            console.log('%c⚠️ WICHTIGER HINWEIS ⚠️', 'color: #e67e22; font-size: 16px; font-weight: bold;');
+            console.log('Diese Seite ist die alte Lernzettel-Sammlung und wird nicht mehr erweitert.');
+            console.log('➡️ Alle aktuellen Lerninhalte + neue Fächer findest du hier:');
+            console.log('https://baadjid.github.io/educational-platform/#/projekte/lernzettel');
+            console.log('Viel Erfolg mit der neuen Plattform! 🎓');
         });
 
         // Keyboard shortcut: Press 'H' to scroll to top
@@ -676,3 +921,4 @@
     </script>
 </body>
 </html>
+```
